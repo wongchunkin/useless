@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "useless"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["VivyLabs <vivylabs@gmail.com>"]
@@ -7,6 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+fastapi = "^0.111.0"
+langchain = "^0.1.17"
+langchain-groq = "^0.1.3"
 
 
 [build-system]
