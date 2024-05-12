@@ -1,38 +1,38 @@
 from fastapi import FastAPI
 from app.chains import (
-    APIAnswerChain,
+    DataSummarizationChain,
     SchemaGenerationChain,
-    ExtractionChain,
-    SQLQueryChain,
+    DataExtractionChain,
+    QueryGenerationChain,
 )
 from app.models import (
-    APIAnswerModel,
-    APIAnswerOutputModel,
+    DataSummarizationModel,
+    DataSummarizationOutputModel,
     SchemaGenerationModel,
     SchemaGenerationOutputModel,
-    ExtractionModel,
-    ExtractionOutputModel,
-    SQLQueryModel,
-    SQLQueryOutputModel,
+    DataExtractionModel,
+    DataExtractionOutputModel,
+    QueryGenerationModel,
+    QueryGenerationOutputModel,
 )
 
 app = FastAPI()
 v1 = FastAPI()
 
-api_answer_chain = APIAnswerChain()
-extraction_chain = ExtractionChain()
-sql_query_chain = SQLQueryChain()
+data_summarization_chain = DataSummarizationChain()
+data_extraction_chain = DataExtractionChain()
+query_generation_chain = QueryGenerationChain()
 schema_generation_chain = SchemaGenerationChain()
 
 
-@v1.post("/summarize")
-def api_answer(data: APIAnswerModel) -> APIAnswerOutputModel:
-    return api_answer_chain.invoke(data)
+@v1.post("/structured/dataSummarization")
+def data_summarization(data: DataSummarizationModel) -> DataSummarizationOutputModel:
+    return data_summarization_chain.invoke(data)
 
 
-@v1.post("/extract")
-def extraction(data: ExtractionModel) -> ExtractionOutputModel:
-    return extraction_chain.invoke(data)
+@v1.post("/structured/dataExtraction")
+def data_extraction(data: DataExtractionModel) -> DataExtractionOutputModel:
+    return data_extraction_chain.invoke(data)
 
 
 @v1.post("/database/schemaGeneration")
@@ -40,9 +40,9 @@ def schema_generation(data: SchemaGenerationModel) -> SchemaGenerationOutputMode
     return schema_generation_chain.invoke(data)
 
 
-@v1.post("/sqlQuery")
-def sql_query(data: SQLQueryModel) -> SQLQueryOutputModel:
-    return sql_query_chain.invoke(data)
+@v1.post("/database/queryGeneration")
+def query_generation(data: QueryGenerationModel) -> QueryGenerationOutputModel:
+    return query_generation_chain.invoke(data)
 
 
 app.mount("/api/v1", v1)

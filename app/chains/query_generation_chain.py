@@ -5,8 +5,8 @@ from langchain_core.output_parsers.string import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 from fastapi.encoders import jsonable_encoder
-from app.models.sql_query_model import SQLQueryModel, SQLQueryOutputModel
-from app.prompts.sql_query_prompt import (
+from app.models import QueryGenerationModel, QueryGenerationOutputModel
+from app.prompts import (
     MSSQL_PROMPT,
     MYSQL_PROMPT,
     ORACLE_PROMPT,
@@ -17,7 +17,7 @@ from app.prompts.sql_query_prompt import (
 load_dotenv()
 
 
-class SQLQueryChain:
+class QueryGenerationChain:
     _sql_prompts = {
         "mysql": MYSQL_PROMPT,
         "postgres": POSTGRES_PROMPT,
@@ -41,7 +41,7 @@ class SQLQueryChain:
             else self._sql_prompts["sqlite"]
         )
 
-    def invoke(self, data: SQLQueryModel) -> SQLQueryOutputModel:
+    def invoke(self, data: QueryGenerationModel) -> QueryGenerationOutputModel:
         json_compatible_examples = jsonable_encoder(data.examples)
         examples = json.dumps(json_compatible_examples)
         json_compatible_schema = jsonable_encoder(data.json_schema)

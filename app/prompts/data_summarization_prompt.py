@@ -1,4 +1,4 @@
-API_ANSWER_PROMPT = """You are given the below API Documentation:
+DATA_SUMMARIZATION_PROMPT = """You are given the below API Documentation:
 
 {schema}
 
