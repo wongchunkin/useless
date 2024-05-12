@@ -35,7 +35,7 @@ class SQLQueryTableModel(BaseModel):
 class SQLQuerySchemaModel(BaseModel):
     table: SQLQueryTableModel
     columns: List[SQLQueryColumnModel]
-    primary_keys: List[str]
+    primary_keys: Optional[List[str]] = []
     foreign_keys: Optional[List[SQLQueryForeignKeyModel]] = []
 
 
